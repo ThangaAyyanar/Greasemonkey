@@ -1,3 +1,5 @@
+// ==UserScript==
+// @name        aaa
 // @namespace   thangaayyanar.blogspot.com
 // @include     about:newtab
 // @version     1
@@ -11,17 +13,24 @@ function solution(datam,flag,count){
   
   if(flag){
       var str="qlist_tbl:"+count+":j_id_du";
-      document.getElementById(str).click();
+      try{
+        document.getElementById(str).click();
+      }catch(err){
+        magic(true,"",count+5);
+      }
       setTimeout(function(){
         if(count<5)
          hello(count);  
       },1000)
-    }else{  
-      soln+=datam;
+    }else{ 
+      if((count%5)==1)
+        soln=datam;
+      else
+        soln+=datam;
       //alert(soln);
-      if(count==5){
+      if(count%5==0){
          alert("in");
-          magic(false,soln);
+          magic(false,soln,count);
        }
       solution(soln,true,count);
     }
@@ -30,13 +39,15 @@ function solution(datam,flag,count){
    
     //unsafeWindow.count+=5;
 }
-function magic(flag,datam){
+function magic(flag,datam,count){
   //alert("hello");
   //if (unsafeWindow.count == undefined) {
    //unsafeWindow.count = 0;
   //}
+  if(count>70)
+    return;
   if(flag){
-    solution("",true,0);
+    solution("",true,count);
   }else{
   var data=document.getElementById("qlist_tbl_data").innerHTML;
   data+=datam;
@@ -56,7 +67,7 @@ function magic(flag,datam){
 document.addEventListener('keydown', function(e) {
   // pressed alt+g
   if (e.keyCode == 71 && !e.shiftKey && !e.ctrlKey && e.altKey && !e.metaKey) {
-   magic(true,"");
+   magic(true,"",0);
   }
 }, false);
 })();
