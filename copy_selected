@@ -1,0 +1,44 @@
+// ==UserScript==
+// @name        simplecalc
+// @namespace   thangaayyanar.blogspot.com
+// @include     https://www.ibm.com/developerworks/community/blogs/MartinPacker/entry/greasemonkey_script_to_sum_selected_numbers_in_a_web_page?lang=en
+// @version     1
+// @grant       none
+// ==/UserScript==
+
+ input=document.createElement("input")
+    input.type="button";
+    input.value="Sum Up";
+    input.onclick = showResult;
+    document.body.insertBefore(input,document.body.firstChild)
+
+    function showResult()
+    {
+      // Get array of space- and range-separated tokens
+        selection=window.getSelection()//this is important
+        
+        var tokens=[]
+        for(r=0;r<selection.rangeCount;r++){
+            rangeTokens=selection.getRangeAt(r).toString().split(" ")
+            for(t=0;t<rangeTokens.length;t++){
+                tokens.push(rangeTokens[t])
+            }
+        }
+
+        // Sum up any detected number values
+        tally=0
+        count=0
+        maximum=Math.max()
+        minimum=Math.min()
+        for(t=0;t<tokens.length;t++){
+            tokenValue=parseFloat(tokens[t])
+            if(!isNaN(tokenValue)){
+                tally+=tokenValue
+                count++
+                maximum=Math.max(maximum,tokenValue)
+                minimum=Math.min(minimum,tokenValue)
+            }
+        }
+        alert("Sum: "+tally+" Average: "+tally/count+" Minimum: "+minimum+" Maximum: "+maximum)
+    }
+
