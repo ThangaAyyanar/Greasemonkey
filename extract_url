@@ -2,10 +2,16 @@
 
 var data="";//to collect all url from page
 
-var divs = document.querySelectorAll('[rel="Bookmark"]'),i; //take url which obey this constraints
+var anchor = document.querySelectorAll('[rel="Bookmark"]'),i; //take url which obey this constraints
 
-for (i = 0; i < divs.length; ++i) {
-  data+=divs[i].href;                     //extract url from the anchor tag
+/* select all anchor tag use the following scripts
+
+var anchor = document.getElementsByTagName('a'),i;
+
+*/
+
+for (i = 0; i < anchor.length; ++i) {
+  data+=anchor[i].href;                     //extract url from the anchor tag
   data+="\n";                             //insert new line
 }
 
