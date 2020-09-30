@@ -1,7 +1,7 @@
 
 - Consider you have to download text file from webpage, where each page can be reached by id.
 - Consideration
-    * The download the data form: BASE_URL+ID
+    * The download data form: BASE_URL+ID
     
     once you done that, feed it to **initiater**
     
